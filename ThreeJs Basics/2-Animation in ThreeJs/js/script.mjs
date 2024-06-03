@@ -48,22 +48,21 @@ let angle = 0;
 box.scale.set(3, 3, 3);
 console.log(box);
 
+const degToRad = (deg) => (deg * Math.PI) / 180;
+
+console.log(degToRad(360) === 2 * Math.PI);
+
 const animate = () => {
   requestAnimationFrame(animate);
 
-  angle += 0.01;
+  angle += degToRad(1);
+  console.log({ angle });
 
   const sin = 10 * Math.sin(angle);
   const cos = 10 * Math.cos(angle);
 
   torch.position.set(cos, 0, sin);
   pointLight.position.set(cos, 0, sin);
-
-  // scene.add(pointLight);
-
-  // box.rotateX(0.01);
-  // box.rotateY(0.01);
-  // box.rotateZ(0.01);
 
   renderer.render(scene, camera);
 };

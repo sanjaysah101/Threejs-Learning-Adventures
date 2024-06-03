@@ -7,12 +7,16 @@ import {
   PointLight,
   Scene,
   SphereGeometry,
+  TextureLoader,
   WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-const ambientLight = new AmbientLight(0xffffff, 0.01);
+const ambientLight = new AmbientLight(0xffffff, 0.05);
 const pointLight = new PointLight(0xffffff, 50, 100);
+
+const earthTexture = new TextureLoader().load('/earth_day.jpg');
+const moonTexture = new TextureLoader().load('/moon.jpg');
 
 const scene = new Scene();
 
@@ -35,11 +39,15 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('app').appendChild(renderer.domElement);
 
 const earthGeometry = new SphereGeometry();
-const earthMaterial = new MeshStandardMaterial({ color: 0x00ff00 });
+const earthMaterial = new MeshStandardMaterial({
+  map: earthTexture,
+});
 const earth = new Mesh(earthGeometry, earthMaterial);
 
 const moonGeometry = new SphereGeometry();
-const moonMaterial = new MeshBasicMaterial({ color: 0xffffff });
+const moonMaterial = new MeshBasicMaterial({
+  map: moonTexture,
+});
 const torch = new Mesh(moonGeometry, moonMaterial);
 
 scene.add(earth);
@@ -56,11 +64,12 @@ controls.update();
 const animate = () => {
   requestAnimationFrame(animate);
 
-  angle += degToRad(1);
+  angle += degToRad(0.5);
 
   const sin = 10 * Math.sin(angle);
   const cos = 10 * Math.cos(angle);
 
+  earth.rotation.y += 0.001;
   torch.position.set(cos, 0, sin);
   pointLight.position.set(cos, 0, sin);
 

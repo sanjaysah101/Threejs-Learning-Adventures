@@ -9,6 +9,7 @@ import {
   SphereGeometry,
   WebGLRenderer,
 } from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const ambientLight = new AmbientLight(0xffffff, 0.01);
 const pointLight = new PointLight(0xffffff, 50, 100);
@@ -35,20 +36,23 @@ document.getElementById('app').appendChild(renderer.domElement);
 
 const earthGeometry = new SphereGeometry();
 const earthMaterial = new MeshStandardMaterial({ color: 0x00ff00 });
-const box = new Mesh(earthGeometry, earthMaterial);
+const earth = new Mesh(earthGeometry, earthMaterial);
 
 const moonGeometry = new SphereGeometry();
 const moonMaterial = new MeshBasicMaterial({ color: 0xffffff });
 const torch = new Mesh(moonGeometry, moonMaterial);
 
-scene.add(box);
+scene.add(earth);
 scene.add(torch);
 
+const controls = new OrbitControls(camera, renderer.domElement);
+
 let angle = 0;
-box.scale.set(3, 3, 3);
+earth.scale.set(3, 3, 3);
 
 const degToRad = (deg) => (deg * Math.PI) / 180;
 
+controls.update();
 const animate = () => {
   requestAnimationFrame(animate);
 

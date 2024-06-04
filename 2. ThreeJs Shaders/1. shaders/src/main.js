@@ -1,4 +1,5 @@
 import {
+  BoxGeometry,
   Mesh,
   PerspectiveCamera,
   PlaneGeometry,
@@ -6,6 +7,8 @@ import {
   Scene,
   WebGLRenderer,
 } from 'three';
+
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import vertexShaderSource from './vertexShaderSource.vert';
 import fragmentShaderSource from './fragmentShaderSource.frag';
@@ -29,13 +32,19 @@ const geometry = new PlaneGeometry(1, 1, 1, 1);
 const shaderMaterial = new RawShaderMaterial({
   fragmentShader: fragmentShaderSource,
   vertexShader: vertexShaderSource,
+  uniforms: {
+    color: { type: 'f', value: 0 },
+  },
 });
 
 const mesh = new Mesh(geometry, shaderMaterial);
 
+new OrbitControls(camera, renderer.domElement);
+
 scene.add(mesh);
 
 const animate = () => {
+  shaderMaterial.uniforms.color.value += 0.1;
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
 };

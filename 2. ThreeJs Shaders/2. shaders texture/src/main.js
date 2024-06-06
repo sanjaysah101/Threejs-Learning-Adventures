@@ -1,4 +1,5 @@
 import {
+  AxesHelper,
   Mesh,
   PerspectiveCamera,
   PlaneGeometry,
@@ -17,6 +18,7 @@ import cubeGridTexture from '/cubeGridTexture.jpg';
 import woodenTexture from '/woodenTexture.jpg';
 
 const scene = new Scene();
+const axesHelper = new AxesHelper(5);
 
 const camera = new PerspectiveCamera(
   75,
@@ -25,7 +27,9 @@ const camera = new PerspectiveCamera(
   1000
 );
 
-camera.position.z = 5;
+scene.add(axesHelper);
+
+camera.position.set(5, 5, 5);
 
 const renderer = new WebGLRenderer();
 

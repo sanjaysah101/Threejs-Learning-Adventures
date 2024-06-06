@@ -48,10 +48,10 @@ const moonGeometry = new SphereGeometry();
 const moonMaterial = new MeshBasicMaterial({
   map: moonTexture,
 });
-const torch = new Mesh(moonGeometry, moonMaterial);
+const moon = new Mesh(moonGeometry, moonMaterial);
 
 scene.add(earth);
-scene.add(torch);
+scene.add(moon);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -70,7 +70,7 @@ const animate = () => {
   const cos = 10 * Math.cos(angle);
 
   earth.rotation.y += 0.001;
-  torch.position.set(cos, 0, sin);
+  moon.position.set(cos, 0, sin);
   pointLight.position.set(cos, 0, sin);
 
   renderer.render(scene, camera);

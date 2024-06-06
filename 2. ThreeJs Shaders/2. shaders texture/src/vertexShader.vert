@@ -1,5 +1,5 @@
 attribute vec3 position; // Attribute to hold vertex position
-attribute vec2 uv;
+attribute vec2 uv; // Attribute to hold texture coordinates
 uniform mat4 projectionMatrix; // Uniform for projection matrix
 uniform mat4 modelViewMatrix; // Uniform for model-view matrix
 
